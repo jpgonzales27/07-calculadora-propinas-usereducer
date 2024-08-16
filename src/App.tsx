@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import MenuItem from "./components/MenuItem";
 import { menuItems } from "./data/db";
 import type { MenuItem as MenuItemType } from "./types";
+import useOrder from "./hooks/useOrder";
 
 function App() {
   const [data, setData] = useState<MenuItemType[]>([]);
-
+  const { addItem } = useOrder();
   useEffect(() => {
     setData(menuItems);
   }, []);
@@ -21,7 +22,7 @@ function App() {
           <h2 className="text-4xl font-black">Menu</h2>
           <div className="space-y-3 mt-10">
             {data.map((item) => (
-              <MenuItem key={item.id} item={item} />
+              <MenuItem key={item.id} item={item} addItem={addItem} />
             ))}
           </div>
         </div>
