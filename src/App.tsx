@@ -5,10 +5,11 @@ import type { MenuItem as MenuItemType } from "./types";
 import useOrder from "./hooks/useOrder";
 import OrderContents from "./components/OrderContents";
 import OrderTotals from "./components/OrderTotals";
+import TipPercentageForm from "./components/TipPercentageForm";
 
 function App() {
   const [data, setData] = useState<MenuItemType[]>([]);
-  const { order, addItem, removeItem } = useOrder();
+  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder();
   useEffect(() => {
     setData(menuItems);
   }, []);
@@ -32,7 +33,8 @@ function App() {
           {order.length ? (
             <>
               <OrderContents order={order} removeItem={removeItem} />
-              <OrderTotals order={order} />
+              <TipPercentageForm setTip={setTip} />
+              <OrderTotals order={order} tip={tip} placeOrder={placeOrder} />
             </>
           ) : (
             <p className="text-center"> La orden esta vacia</p>
