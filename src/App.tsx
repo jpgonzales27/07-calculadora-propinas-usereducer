@@ -3,10 +3,11 @@ import MenuItem from "./components/MenuItem";
 import { menuItems } from "./data/db";
 import type { MenuItem as MenuItemType } from "./types";
 import useOrder from "./hooks/useOrder";
+import OrderContents from "./components/OrderContents";
 
 function App() {
   const [data, setData] = useState<MenuItemType[]>([]);
-  const { addItem } = useOrder();
+  const { order, addItem, removeItem } = useOrder();
   useEffect(() => {
     setData(menuItems);
   }, []);
@@ -26,8 +27,8 @@ function App() {
             ))}
           </div>
         </div>
-        <div>
-          <h2>Consumo</h2>
+        <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
+          <OrderContents order={order} removeItem={removeItem} />
         </div>
       </main>
     </>

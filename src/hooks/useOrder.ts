@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { MenuItem, OrdenItem } from "../types";
+import type { MenuItem, OrderItem } from "../types";
 
 export default function useOrder() {
-  const [order, setOrder] = useState<OrdenItem[]>([]);
+  const [order, setOrder] = useState<OrderItem[]>([]);
 
   const addItem = (item: MenuItem) => {
     const itemExist = order.find((orderItem) => orderItem.id === item.id);
@@ -17,7 +17,12 @@ export default function useOrder() {
     }
   };
 
+  const removeItem = (id: MenuItem["id"]) => {
+    console.log("removiendo item id: ", id);
+    setOrder(order.filter((item) => item.id !== id));
+  };
+
   console.log(order);
 
-  return { addItem };
+  return { order, addItem, removeItem };
 }
